@@ -3,7 +3,7 @@
 
 -- 1. Profiles Table (syncs with auth.users)
 CREATE TABLE IF NOT EXISTS public.profiles (
-  id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   display_name TEXT NOT NULL,
   avatar_url TEXT,
   phone TEXT,

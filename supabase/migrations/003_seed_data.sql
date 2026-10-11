@@ -21,9 +21,9 @@ DECLARE
 BEGIN
   -- 1. Profiles
   INSERT INTO public.profiles (id, display_name, avatar_url, phone) VALUES
-    (v_owner_id, 'Alfikri Djati', 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80', '+6281234567801'),
-    (v_admin_id, 'Adrian Pratama', 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80', '+6281234567802'),
-    (v_member_id, 'Reina Ariel', 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80', '+6281234567803');
+    (v_owner_id, 'RIYAN ARYA SYAHPUTRA', 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80', '+6281234567801'),
+    (v_admin_id, 'FATHUN MUNAJAN', 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80', '+6281234567802'),
+    (v_member_id, 'BINTANG FAJAR', 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80', '+6281234567803');
 
   -- 2. Trip
   INSERT INTO public.trips (id, name, origin, destination, departure_date, return_date, status, cover_image_url, owner_id) VALUES
@@ -32,7 +32,7 @@ BEGIN
   -- 3. Trip Members
   INSERT INTO public.trip_members (trip_id, user_id, role, target_contribution) VALUES
     (v_trip_id, v_owner_id, 'owner', 5000000),
-    (v_trip_id, v_admin_id, 'admin', 5000000),
+    (v_trip_id, v_admin_id, 'member', 5000000),
     (v_trip_id, v_member_id, 'member', 5000000);
 
   -- 4. Budget
@@ -106,9 +106,9 @@ BEGIN
   INSERT INTO public.activity_logs (trip_id, actor_id, action, entity_type, metadata) VALUES
     (v_trip_id, v_owner_id, 'created_trip', 'trip', '{"trip_name": "Malaysia Getaway"}'::jsonb),
     (v_trip_id, v_owner_id, 'set_budget', 'budget', '{"target_amount": 15000000}'::jsonb),
-    (v_trip_id, v_owner_id, 'verified_contribution', 'contribution', '{"amount": 2000000, "member": "Alfikri Djati"}'::jsonb),
-    (v_trip_id, v_admin_id, 'verified_contribution', 'contribution', '{"amount": 1500000, "member": "Adrian Pratama"}'::jsonb),
-    (v_trip_id, v_member_id, 'submitted_contribution', 'contribution', '{"amount": 1000000, "member": "Reina Ariel", "status": "pending"}'::jsonb),
+    (v_trip_id, v_owner_id, 'verified_contribution', 'contribution', '{"amount": 2000000, "member": "RIYAN ARYA SYAHPUTRA"}'::jsonb),
+    (v_trip_id, v_admin_id, 'verified_contribution', 'contribution', '{"amount": 1500000, "member": "FATHUN MUNAJAN"}'::jsonb),
+    (v_trip_id, v_member_id, 'submitted_contribution', 'contribution', '{"amount": 1000000, "member": "BINTANG FAJAR", "status": "pending"}'::jsonb),
     (v_trip_id, v_admin_id, 'recorded_expense', 'expense', '{"amount": 500000, "description": "Apartment deposit"}'::jsonb);
 
 END $$;

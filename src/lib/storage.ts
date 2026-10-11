@@ -6,30 +6,30 @@ import {
 } from '../types';
 import { supabase, isSupabaseConfigured } from './supabase';
 
-const STORAGE_KEY_PREFIX = '4g_trip_workspace_v1';
+const STORAGE_KEY_PREFIX = '4g_trip_workspace_v2';
 
 // Initial default user profiles
 export const DEFAULT_PROFILES: Record<string, UserProfile> = {
-  'user-alfikri': {
-    id: 'user-alfikri',
-    display_name: 'Alfikri Djati',
+  'user-riyan': {
+    id: 'user-riyan',
+    display_name: 'RIYAN ARYA SYAHPUTRA',
     avatar_url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
     phone: '+6281234567801',
-    email: 'alfikri@4gtrip.com'
+    email: 'riyan@4gtrip.com'
   },
-  'user-adrian': {
-    id: 'user-adrian',
-    display_name: 'Adrian Pratama',
+  'user-fathun': {
+    id: 'user-fathun',
+    display_name: 'FATHUN MUNAJAN',
     avatar_url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80',
     phone: '+6281234567802',
-    email: 'adrian@4gtrip.com'
+    email: 'fathun@4gtrip.com'
   },
-  'user-reina': {
-    id: 'user-reina',
-    display_name: 'Reina Ariel',
+  'user-bintang': {
+    id: 'user-bintang',
+    display_name: 'BINTANG FAJAR',
     avatar_url: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80',
     phone: '+6281234567803',
-    email: 'reina@4gtrip.com'
+    email: 'bintang@4gtrip.com'
   }
 };
 
@@ -42,7 +42,7 @@ export const INITIAL_TRIP: Trip = {
   return_date: null,
   status: 'planning',
   cover_image_url: '/images/malaysia-hero.jpg',
-  owner_id: 'user-alfikri',
+  owner_id: 'user-riyan',
   created_at: new Date(Date.now() - 15 * 86400000).toISOString(),
   updated_at: new Date().toISOString()
 };
@@ -51,29 +51,29 @@ export const INITIAL_MEMBERS: TripMember[] = [
   {
     id: 'mem-1',
     trip_id: INITIAL_TRIP.id,
-    user_id: 'user-alfikri',
+    user_id: 'user-riyan',
     role: 'owner',
     target_contribution: 5000000,
     joined_at: new Date(Date.now() - 15 * 86400000).toISOString(),
-    profile: DEFAULT_PROFILES['user-alfikri']
+    profile: DEFAULT_PROFILES['user-riyan']
   },
   {
     id: 'mem-2',
     trip_id: INITIAL_TRIP.id,
-    user_id: 'user-adrian',
-    role: 'admin',
+    user_id: 'user-fathun',
+    role: 'member',
     target_contribution: 5000000,
     joined_at: new Date(Date.now() - 14 * 86400000).toISOString(),
-    profile: DEFAULT_PROFILES['user-adrian']
+    profile: DEFAULT_PROFILES['user-fathun']
   },
   {
     id: 'mem-3',
     trip_id: INITIAL_TRIP.id,
-    user_id: 'user-reina',
+    user_id: 'user-bintang',
     role: 'member',
     target_contribution: 5000000,
     joined_at: new Date(Date.now() - 12 * 86400000).toISOString(),
-    profile: DEFAULT_PROFILES['user-reina']
+    profile: DEFAULT_PROFILES['user-bintang']
   }
 ];
 
@@ -83,7 +83,7 @@ export const INITIAL_BUDGET: Budget = {
   target_amount: 15000000, // Rp 15.000.000 Target Budget
   currency: 'IDR',
   revision_note: 'Initial group budget target for 4D3N trip',
-  created_by: 'user-alfikri',
+  created_by: 'user-riyan',
   updated_at: new Date(Date.now() - 10 * 86400000).toISOString()
 };
 
@@ -157,37 +157,37 @@ export const INITIAL_CONTRIBUTIONS: Contribution[] = [
   {
     id: 'cb-1',
     trip_id: INITIAL_TRIP.id,
-    member_id: 'user-alfikri',
+    member_id: 'user-riyan',
     amount: 2000000,
     payment_method: 'bank_transfer',
     payment_date: new Date(Date.now() - 9 * 86400000).toISOString().split('T')[0],
     reference_number: 'BCA-847291',
     notes: 'Batch 1 group savings contribution',
     status: 'verified',
-    verified_by: 'user-alfikri',
+    verified_by: 'user-riyan',
     verified_at: new Date(Date.now() - 9 * 86400000).toISOString(),
     created_at: new Date(Date.now() - 9 * 86400000).toISOString(),
-    member_profile: DEFAULT_PROFILES['user-alfikri']
+    member_profile: DEFAULT_PROFILES['user-riyan']
   },
   {
     id: 'cb-2',
     trip_id: INITIAL_TRIP.id,
-    member_id: 'user-adrian',
+    member_id: 'user-fathun',
     amount: 1500000,
     payment_method: 'bank_transfer',
     payment_date: new Date(Date.now() - 5 * 86400000).toISOString().split('T')[0],
     reference_number: 'MANDIRI-192834',
     notes: 'Batch 1 flight reservation fund',
     status: 'verified',
-    verified_by: 'user-alfikri',
+    verified_by: 'user-riyan',
     verified_at: new Date(Date.now() - 4 * 86400000).toISOString(),
     created_at: new Date(Date.now() - 5 * 86400000).toISOString(),
-    member_profile: DEFAULT_PROFILES['user-adrian']
+    member_profile: DEFAULT_PROFILES['user-fathun']
   },
   {
     id: 'cb-3',
     trip_id: INITIAL_TRIP.id,
-    member_id: 'user-reina',
+    member_id: 'user-bintang',
     amount: 1000000,
     payment_method: 'qris',
     payment_date: new Date().toISOString().split('T')[0],
@@ -195,7 +195,7 @@ export const INITIAL_CONTRIBUTIONS: Contribution[] = [
     notes: 'October savings installment',
     status: 'pending',
     created_at: new Date().toISOString(),
-    member_profile: DEFAULT_PROFILES['user-reina']
+    member_profile: DEFAULT_PROFILES['user-bintang']
   }
 ];
 
@@ -207,11 +207,11 @@ export const INITIAL_EXPENSES: Expense[] = [
     amount: 500000,
     description: 'Booking down payment for apartment in Bukit Bintang',
     expense_date: new Date(Date.now() - 3 * 86400000).toISOString().split('T')[0],
-    responsible_member_id: 'user-adrian',
-    created_by: 'user-adrian',
+    responsible_member_id: 'user-fathun',
+    created_by: 'user-fathun',
     created_at: new Date(Date.now() - 3 * 86400000).toISOString(),
     category: INITIAL_CATEGORIES[1],
-    responsible_profile: DEFAULT_PROFILES['user-adrian']
+    responsible_profile: DEFAULT_PROFILES['user-fathun']
   }
 ];
 
@@ -228,10 +228,10 @@ export const INITIAL_ITINERARY: ItineraryItem[] = [
     estimated_cost: 0,
     status: 'confirmed',
     sort_order: 1,
-    assigned_to: 'user-alfikri',
-    created_by: 'user-alfikri',
+    assigned_to: 'user-riyan',
+    created_by: 'user-riyan',
     created_at: new Date(Date.now() - 8 * 86400000).toISOString(),
-    assigned_profile: DEFAULT_PROFILES['user-alfikri']
+    assigned_profile: DEFAULT_PROFILES['user-riyan']
   },
   {
     id: 'itin-2',
@@ -245,10 +245,10 @@ export const INITIAL_ITINERARY: ItineraryItem[] = [
     estimated_cost: 250000,
     status: 'confirmed',
     sort_order: 2,
-    assigned_to: 'user-adrian',
-    created_by: 'user-adrian',
+    assigned_to: 'user-fathun',
+    created_by: 'user-fathun',
     created_at: new Date(Date.now() - 8 * 86400000).toISOString(),
-    assigned_profile: DEFAULT_PROFILES['user-adrian']
+    assigned_profile: DEFAULT_PROFILES['user-fathun']
   },
   {
     id: 'itin-3',
@@ -262,10 +262,10 @@ export const INITIAL_ITINERARY: ItineraryItem[] = [
     estimated_cost: 0,
     status: 'suggested',
     sort_order: 3,
-    assigned_to: 'user-alfikri',
-    created_by: 'user-alfikri',
+    assigned_to: 'user-riyan',
+    created_by: 'user-riyan',
     created_at: new Date(Date.now() - 8 * 86400000).toISOString(),
-    assigned_profile: DEFAULT_PROFILES['user-alfikri']
+    assigned_profile: DEFAULT_PROFILES['user-riyan']
   },
   {
     id: 'itin-4',
@@ -279,10 +279,10 @@ export const INITIAL_ITINERARY: ItineraryItem[] = [
     estimated_cost: 0,
     status: 'suggested',
     sort_order: 4,
-    assigned_to: 'user-reina',
-    created_by: 'user-reina',
+    assigned_to: 'user-bintang',
+    created_by: 'user-bintang',
     created_at: new Date(Date.now() - 8 * 86400000).toISOString(),
-    assigned_profile: DEFAULT_PROFILES['user-reina']
+    assigned_profile: DEFAULT_PROFILES['user-bintang']
   },
   {
     id: 'itin-5',
@@ -296,10 +296,10 @@ export const INITIAL_ITINERARY: ItineraryItem[] = [
     estimated_cost: 50000,
     status: 'suggested',
     sort_order: 1,
-    assigned_to: 'user-alfikri',
-    created_by: 'user-alfikri',
+    assigned_to: 'user-riyan',
+    created_by: 'user-riyan',
     created_at: new Date(Date.now() - 7 * 86400000).toISOString(),
-    assigned_profile: DEFAULT_PROFILES['user-alfikri']
+    assigned_profile: DEFAULT_PROFILES['user-riyan']
   },
   {
     id: 'itin-6',
@@ -313,10 +313,10 @@ export const INITIAL_ITINERARY: ItineraryItem[] = [
     estimated_cost: 350000,
     status: 'suggested',
     sort_order: 2,
-    assigned_to: 'user-adrian',
-    created_by: 'user-adrian',
+    assigned_to: 'user-fathun',
+    created_by: 'user-fathun',
     created_at: new Date(Date.now() - 7 * 86400000).toISOString(),
-    assigned_profile: DEFAULT_PROFILES['user-adrian']
+    assigned_profile: DEFAULT_PROFILES['user-fathun']
   },
   {
     id: 'itin-7',
@@ -330,10 +330,10 @@ export const INITIAL_ITINERARY: ItineraryItem[] = [
     estimated_cost: 150000,
     status: 'suggested',
     sort_order: 3,
-    assigned_to: 'user-reina',
-    created_by: 'user-reina',
+    assigned_to: 'user-bintang',
+    created_by: 'user-bintang',
     created_at: new Date(Date.now() - 7 * 86400000).toISOString(),
-    assigned_profile: DEFAULT_PROFILES['user-reina']
+    assigned_profile: DEFAULT_PROFILES['user-bintang']
   },
   {
     id: 'itin-8',
@@ -347,10 +347,10 @@ export const INITIAL_ITINERARY: ItineraryItem[] = [
     estimated_cost: 0,
     status: 'suggested',
     sort_order: 1,
-    assigned_to: 'user-alfikri',
-    created_by: 'user-alfikri',
+    assigned_to: 'user-riyan',
+    created_by: 'user-riyan',
     created_at: new Date(Date.now() - 6 * 86400000).toISOString(),
-    assigned_profile: DEFAULT_PROFILES['user-alfikri']
+    assigned_profile: DEFAULT_PROFILES['user-riyan']
   },
   {
     id: 'itin-9',
@@ -364,10 +364,10 @@ export const INITIAL_ITINERARY: ItineraryItem[] = [
     estimated_cost: 200000,
     status: 'suggested',
     sort_order: 2,
-    assigned_to: 'user-adrian',
-    created_by: 'user-adrian',
+    assigned_to: 'user-fathun',
+    created_by: 'user-fathun',
     created_at: new Date(Date.now() - 6 * 86400000).toISOString(),
-    assigned_profile: DEFAULT_PROFILES['user-adrian']
+    assigned_profile: DEFAULT_PROFILES['user-fathun']
   },
   {
     id: 'itin-10',
@@ -381,10 +381,10 @@ export const INITIAL_ITINERARY: ItineraryItem[] = [
     estimated_cost: 120000,
     status: 'suggested',
     sort_order: 3,
-    assigned_to: 'user-reina',
-    created_by: 'user-reina',
+    assigned_to: 'user-bintang',
+    created_by: 'user-bintang',
     created_at: new Date(Date.now() - 6 * 86400000).toISOString(),
-    assigned_profile: DEFAULT_PROFILES['user-reina']
+    assigned_profile: DEFAULT_PROFILES['user-bintang']
   },
   {
     id: 'itin-11',
@@ -398,10 +398,10 @@ export const INITIAL_ITINERARY: ItineraryItem[] = [
     estimated_cost: 60000,
     status: 'suggested',
     sort_order: 1,
-    assigned_to: 'user-alfikri',
-    created_by: 'user-alfikri',
+    assigned_to: 'user-riyan',
+    created_by: 'user-riyan',
     created_at: new Date(Date.now() - 5 * 86400000).toISOString(),
-    assigned_profile: DEFAULT_PROFILES['user-alfikri']
+    assigned_profile: DEFAULT_PROFILES['user-riyan']
   },
   {
     id: 'itin-12',
@@ -415,10 +415,10 @@ export const INITIAL_ITINERARY: ItineraryItem[] = [
     estimated_cost: 200000,
     status: 'suggested',
     sort_order: 2,
-    assigned_to: 'user-adrian',
-    created_by: 'user-adrian',
+    assigned_to: 'user-fathun',
+    created_by: 'user-fathun',
     created_at: new Date(Date.now() - 5 * 86400000).toISOString(),
-    assigned_profile: DEFAULT_PROFILES['user-adrian']
+    assigned_profile: DEFAULT_PROFILES['user-fathun']
   },
   {
     id: 'itin-13',
@@ -432,10 +432,10 @@ export const INITIAL_ITINERARY: ItineraryItem[] = [
     estimated_cost: 0,
     status: 'confirmed',
     sort_order: 3,
-    assigned_to: 'user-alfikri',
-    created_by: 'user-alfikri',
+    assigned_to: 'user-riyan',
+    created_by: 'user-riyan',
     created_at: new Date(Date.now() - 5 * 86400000).toISOString(),
-    assigned_profile: DEFAULT_PROFILES['user-alfikri']
+    assigned_profile: DEFAULT_PROFILES['user-riyan']
   }
 ];
 
@@ -521,10 +521,10 @@ export const INITIAL_PACKING: PackingItem[] = [
     title: 'Passport (Min. 6 months validity)',
     category: 'documents',
     is_completed: true,
-    assigned_to: 'user-alfikri',
-    created_by: 'user-alfikri',
+    assigned_to: 'user-riyan',
+    created_by: 'user-riyan',
     created_at: new Date().toISOString(),
-    assigned_profile: DEFAULT_PROFILES['user-alfikri']
+    assigned_profile: DEFAULT_PROFILES['user-riyan']
   },
   {
     id: 'pack-2',
@@ -532,10 +532,10 @@ export const INITIAL_PACKING: PackingItem[] = [
     title: 'Malaysia Digital Arrival Card (MDAC)',
     category: 'documents',
     is_completed: false,
-    assigned_to: 'user-adrian',
-    created_by: 'user-alfikri',
+    assigned_to: 'user-fathun',
+    created_by: 'user-riyan',
     created_at: new Date().toISOString(),
-    assigned_profile: DEFAULT_PROFILES['user-adrian']
+    assigned_profile: DEFAULT_PROFILES['user-fathun']
   },
   {
     id: 'pack-3',
@@ -543,10 +543,10 @@ export const INITIAL_PACKING: PackingItem[] = [
     title: 'Flight Tickets (Banda Aceh ⇄ KUL)',
     category: 'documents',
     is_completed: true,
-    assigned_to: 'user-alfikri',
-    created_by: 'user-alfikri',
+    assigned_to: 'user-riyan',
+    created_by: 'user-riyan',
     created_at: new Date().toISOString(),
-    assigned_profile: DEFAULT_PROFILES['user-alfikri']
+    assigned_profile: DEFAULT_PROFILES['user-riyan']
   },
   {
     id: 'pack-4',
@@ -554,10 +554,10 @@ export const INITIAL_PACKING: PackingItem[] = [
     title: 'Hotel / Suite Booking Voucher',
     category: 'documents',
     is_completed: true,
-    assigned_to: 'user-adrian',
-    created_by: 'user-adrian',
+    assigned_to: 'user-fathun',
+    created_by: 'user-fathun',
     created_at: new Date().toISOString(),
-    assigned_profile: DEFAULT_PROFILES['user-adrian']
+    assigned_profile: DEFAULT_PROFILES['user-fathun']
   },
   {
     id: 'pack-5',
@@ -565,10 +565,10 @@ export const INITIAL_PACKING: PackingItem[] = [
     title: 'Travel Insurance Documents',
     category: 'documents',
     is_completed: false,
-    assigned_to: 'user-reina',
-    created_by: 'user-alfikri',
+    assigned_to: 'user-bintang',
+    created_by: 'user-riyan',
     created_at: new Date().toISOString(),
-    assigned_profile: DEFAULT_PROFILES['user-reina']
+    assigned_profile: DEFAULT_PROFILES['user-bintang']
   },
   {
     id: 'pack-6',
@@ -576,10 +576,10 @@ export const INITIAL_PACKING: PackingItem[] = [
     title: 'SIM Card / Roaming E-SIM configured',
     category: 'gear',
     is_completed: true,
-    assigned_to: 'user-adrian',
-    created_by: 'user-adrian',
+    assigned_to: 'user-fathun',
+    created_by: 'user-fathun',
     created_at: new Date().toISOString(),
-    assigned_profile: DEFAULT_PROFILES['user-adrian']
+    assigned_profile: DEFAULT_PROFILES['user-fathun']
   },
   {
     id: 'pack-7',
@@ -587,10 +587,10 @@ export const INITIAL_PACKING: PackingItem[] = [
     title: 'Power Bank & Type G Universal Plug Adapter',
     category: 'gear',
     is_completed: false,
-    assigned_to: 'user-alfikri',
-    created_by: 'user-alfikri',
+    assigned_to: 'user-riyan',
+    created_by: 'user-riyan',
     created_at: new Date().toISOString(),
-    assigned_profile: DEFAULT_PROFILES['user-alfikri']
+    assigned_profile: DEFAULT_PROFILES['user-riyan']
   },
   {
     id: 'pack-8',
@@ -598,10 +598,10 @@ export const INITIAL_PACKING: PackingItem[] = [
     title: 'Comfortable Walking Shoes for Batu Caves',
     category: 'clothing',
     is_completed: true,
-    assigned_to: 'user-reina',
-    created_by: 'user-reina',
+    assigned_to: 'user-bintang',
+    created_by: 'user-bintang',
     created_at: new Date().toISOString(),
-    assigned_profile: DEFAULT_PROFILES['user-reina']
+    assigned_profile: DEFAULT_PROFILES['user-bintang']
   },
   {
     id: 'pack-9',
@@ -609,10 +609,10 @@ export const INITIAL_PACKING: PackingItem[] = [
     title: 'Personal Travel First Aid & Motion Pills',
     category: 'health',
     is_completed: true,
-    assigned_to: 'user-adrian',
-    created_by: 'user-adrian',
+    assigned_to: 'user-fathun',
+    created_by: 'user-fathun',
     created_at: new Date().toISOString(),
-    assigned_profile: DEFAULT_PROFILES['user-adrian']
+    assigned_profile: DEFAULT_PROFILES['user-fathun']
   },
   {
     id: 'pack-10',
@@ -620,10 +620,10 @@ export const INITIAL_PACKING: PackingItem[] = [
     title: 'Overseas Debit Card Enabled + Ringgit Cash',
     category: 'finance',
     is_completed: true,
-    assigned_to: 'user-alfikri',
-    created_by: 'user-alfikri',
+    assigned_to: 'user-riyan',
+    created_by: 'user-riyan',
     created_at: new Date().toISOString(),
-    assigned_profile: DEFAULT_PROFILES['user-alfikri']
+    assigned_profile: DEFAULT_PROFILES['user-riyan']
   }
 ];
 
@@ -631,22 +631,22 @@ export const INITIAL_NOTES: GroupNote[] = [
   {
     id: 'note-1',
     trip_id: INITIAL_TRIP.id,
-    author_id: 'user-reina',
+    author_id: 'user-bintang',
     content: "Loving the vibe of this trip plan. Let's goooow! Remember to bring sunscreen and comfortable sneakers for the Batu Caves climb!",
     is_pinned: true,
     created_at: new Date(Date.now() - 4 * 86400000).toISOString(),
     updated_at: new Date(Date.now() - 4 * 86400000).toISOString(),
-    author_profile: DEFAULT_PROFILES['user-reina']
+    author_profile: DEFAULT_PROFILES['user-bintang']
   },
   {
     id: 'note-2',
     trip_id: INITIAL_TRIP.id,
-    author_id: 'user-adrian',
+    author_id: 'user-fathun',
     content: "Pro-tip: We can use BCA debit card directly at Maybank ATMs in KLIA2 for clean cash withdrawal without shady money changer fees.",
     is_pinned: false,
     created_at: new Date(Date.now() - 2 * 86400000).toISOString(),
     updated_at: new Date(Date.now() - 2 * 86400000).toISOString(),
-    author_profile: DEFAULT_PROFILES['user-adrian']
+    author_profile: DEFAULT_PROFILES['user-fathun']
   }
 ];
 
@@ -654,56 +654,56 @@ export const INITIAL_ACTIVITY_LOGS: ActivityLog[] = [
   {
     id: 'act-1',
     trip_id: INITIAL_TRIP.id,
-    actor_id: 'user-alfikri',
+    actor_id: 'user-riyan',
     action: 'Created group trip "Malaysia Getaway"',
     entity_type: 'trip',
     created_at: new Date(Date.now() - 15 * 86400000).toISOString(),
-    actor_profile: DEFAULT_PROFILES['user-alfikri']
+    actor_profile: DEFAULT_PROFILES['user-riyan']
   },
   {
     id: 'act-2',
     trip_id: INITIAL_TRIP.id,
-    actor_id: 'user-alfikri',
+    actor_id: 'user-riyan',
     action: 'Set savings target to Rp15.000.000',
     entity_type: 'budget',
     created_at: new Date(Date.now() - 10 * 86400000).toISOString(),
-    actor_profile: DEFAULT_PROFILES['user-alfikri']
+    actor_profile: DEFAULT_PROFILES['user-riyan']
   },
   {
     id: 'act-3',
     trip_id: INITIAL_TRIP.id,
-    actor_id: 'user-alfikri',
-    action: 'Verified contribution of Rp2.000.000 from Alfikri Djati',
+    actor_id: 'user-riyan',
+    action: 'Verified contribution of Rp2.000.000 from RIYAN ARYA SYAHPUTRA',
     entity_type: 'contribution',
     created_at: new Date(Date.now() - 9 * 86400000).toISOString(),
-    actor_profile: DEFAULT_PROFILES['user-alfikri']
+    actor_profile: DEFAULT_PROFILES['user-riyan']
   },
   {
     id: 'act-4',
     trip_id: INITIAL_TRIP.id,
-    actor_id: 'user-adrian',
-    action: 'Verified contribution of Rp1.500.000 from Adrian Pratama',
+    actor_id: 'user-fathun',
+    action: 'Verified contribution of Rp1.500.000 from FATHUN MUNAJAN',
     entity_type: 'contribution',
     created_at: new Date(Date.now() - 4 * 86400000).toISOString(),
-    actor_profile: DEFAULT_PROFILES['user-adrian']
+    actor_profile: DEFAULT_PROFILES['user-fathun']
   },
   {
     id: 'act-5',
     trip_id: INITIAL_TRIP.id,
-    actor_id: 'user-adrian',
+    actor_id: 'user-fathun',
     action: 'Recorded expense Rp500.000 for Apartment booking deposit',
     entity_type: 'expense',
     created_at: new Date(Date.now() - 3 * 86400000).toISOString(),
-    actor_profile: DEFAULT_PROFILES['user-adrian']
+    actor_profile: DEFAULT_PROFILES['user-fathun']
   },
   {
     id: 'act-6',
     trip_id: INITIAL_TRIP.id,
-    actor_id: 'user-reina',
+    actor_id: 'user-bintang',
     action: 'Submitted pending contribution of Rp1.000.000',
     entity_type: 'contribution',
     created_at: new Date().toISOString(),
-    actor_profile: DEFAULT_PROFILES['user-reina']
+    actor_profile: DEFAULT_PROFILES['user-bintang']
   }
 ];
 
@@ -747,7 +747,7 @@ export function getSavedState(): AppState {
         return_date: null,
         status: 'draft',
         cover_image_url: 'https://images.unsplash.com/photo-1548013146-72479768bada?w=600&auto=format&fit=crop&q=80',
-        owner_id: 'user-alfikri',
+        owner_id: 'user-riyan',
         created_at: new Date(Date.now() - 30 * 86400000).toISOString(),
         updated_at: new Date().toISOString()
       },
@@ -760,7 +760,7 @@ export function getSavedState(): AppState {
         return_date: null,
         status: 'draft',
         cover_image_url: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&auto=format&fit=crop&q=80',
-        owner_id: 'user-alfikri',
+        owner_id: 'user-riyan',
         created_at: new Date(Date.now() - 45 * 86400000).toISOString(),
         updated_at: new Date().toISOString()
       }
@@ -772,7 +772,7 @@ export function getSavedState(): AppState {
         date: new Date(Date.now() - 10 * 86400000).toISOString(),
         amount: 15000000,
         note: 'Initial budget target for 4D3N trip',
-        updatedBy: 'Alfikri Djati'
+        updatedBy: 'RIYAN ARYA SYAHPUTRA'
       }
     ],
     categories: INITIAL_CATEGORIES,

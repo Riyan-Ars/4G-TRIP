@@ -35,6 +35,13 @@ export const Sidebar: React.FC<SidebarProps> = ({ className = '', onCloseMobile 
   ];
 
   const handleUserSelect = (userId: string) => {
+    if (userId === 'user-riyan' && currentUser.id !== 'user-riyan') {
+      const enteredPass = window.prompt('Masukkan password Admin untuk RIYAN ARYA SYAHPUTRA:');
+      if (enteredPass !== '123456') {
+        alert('Password Admin salah! (Gunakan: 123456)');
+        return;
+      }
+    }
     switchDemoUser(userId);
     setShowUserDropdown(false);
   };
@@ -247,7 +254,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ className = '', onCloseMobile 
               </div>
               <div className="space-y-1">
                 {availableDemoUsers.map((user) => {
-                  const roleName = user.id === 'user-alfikri' ? 'owner' : user.id === 'user-adrian' ? 'admin' : 'member';
+                  const roleName = user.id === 'user-riyan' ? 'owner' : 'member';
                   const isSelected = user.id === currentUser.id;
                   return (
                     <button

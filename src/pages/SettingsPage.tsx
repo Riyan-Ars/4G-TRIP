@@ -198,7 +198,7 @@ export const SettingsPage: React.FC = () => {
             Reset Workspace Seed Data
           </h4>
           <p className="text-[11px] text-text-secondary mt-0.5">
-            Restores initial Malaysia Getaway seed records (Alfikri, Adrian, Reina, Rp15M budget, 4D3N plan).
+            Restores initial Malaysia Getaway seed records (Riyan, Fathun, Bintang, Rp15M budget, 4D3N plan).
           </p>
         </div>
 
