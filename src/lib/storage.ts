@@ -13,21 +13,21 @@ export const DEFAULT_PROFILES: Record<string, UserProfile> = {
   'user-riyan': {
     id: 'user-riyan',
     display_name: 'RIYAN ARYA SYAHPUTRA',
-    avatar_url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
+    avatar_url: '/images/riyan.jpg',
     phone: '+6281234567801',
     email: 'riyan@4gtrip.com'
   },
   'user-fathun': {
     id: 'user-fathun',
     display_name: 'FATHUN MUNAJAN',
-    avatar_url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80',
+    avatar_url: '/images/fathun.jpg',
     phone: '+6281234567802',
     email: 'fathun@4gtrip.com'
   },
   'user-bintang': {
     id: 'user-bintang',
     display_name: 'BINTANG FAJAR',
-    avatar_url: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80',
+    avatar_url: '/images/bintang.jpg',
     phone: '+6281234567803',
     email: 'bintang@4gtrip.com'
   }
