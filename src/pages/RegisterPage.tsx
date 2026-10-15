@@ -30,20 +30,20 @@ export const RegisterPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-background flex flex-col justify-center items-center p-4 relative overflow-hidden font-sans">
-      <div className="w-full max-w-md space-y-6 relative z-10">
+      <div className="w-full max-w-sm space-y-6 relative z-10">
         <div className="text-center space-y-2">
-          <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-tr from-brand-mint/20 to-brand-blue/20 border border-brand-mint/40 text-brand-mint shadow-glow-mint mb-2">
-            <Compass className="w-7 h-7" />
+          <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-surface-elevated border border-white/10 text-brand-blue shadow-subtle mb-1">
+            <Compass className="w-6 h-6" />
           </div>
-          <h1 className="text-2xl font-black text-white tracking-tight">
-            Join 4G Trip
+          <h1 className="text-xl font-bold text-text-primary tracking-tight">
+            Create Profile
           </h1>
           <p className="text-xs text-text-secondary">
-            Save together with your travel squad.
+            Join 4G Trip treasury and collaborative workspace.
           </p>
         </div>
 
-        <div className="workspace-card p-6 bg-card border-card-border shadow-2xl space-y-5">
+        <div className="workspace-card p-5 md:p-6 bg-surface border-border shadow-elevated space-y-4">
           {error && (
             <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs flex items-center gap-2">
               <AlertCircle className="w-4 h-4 shrink-0" />
@@ -51,47 +51,47 @@ export const RegisterPage: React.FC = () => {
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-3.5">
             <div>
-              <label className="block text-xs font-semibold text-text-secondary mb-1">
+              <label className="block text-xs font-medium text-text-secondary mb-1">
                 Full Name
               </label>
               <div className="relative">
-                <User className="w-4 h-4 text-text-secondary absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                <User className="w-3.5 h-3.5 text-text-muted absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                 <input
                   type="text"
                   required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Your Name"
-                  className="w-full bg-card-secondary border border-card-border focus:border-brand-mint rounded-xl py-2 pl-9 pr-3 text-xs text-white placeholder:text-text-muted outline-none"
+                  className="w-full bg-surface-secondary border border-border focus:border-brand-blue rounded-xl py-2 pl-9 pr-3 text-xs text-text-primary placeholder:text-text-muted outline-none transition-colors"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-text-secondary mb-1">
+              <label className="block text-xs font-medium text-text-secondary mb-1">
                 Email Address
               </label>
               <div className="relative">
-                <Mail className="w-4 h-4 text-text-secondary absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                <Mail className="w-3.5 h-3.5 text-text-muted absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                 <input
                   type="email"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="name@email.com"
-                  className="w-full bg-card-secondary border border-card-border focus:border-brand-mint rounded-xl py-2 pl-9 pr-3 text-xs text-white placeholder:text-text-muted outline-none"
+                  className="w-full bg-surface-secondary border border-border focus:border-brand-blue rounded-xl py-2 pl-9 pr-3 text-xs text-text-primary placeholder:text-text-muted outline-none transition-colors"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-text-secondary mb-1">
+              <label className="block text-xs font-medium text-text-secondary mb-1">
                 Password
               </label>
               <div className="relative">
-                <Lock className="w-4 h-4 text-text-secondary absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                <Lock className="w-3.5 h-3.5 text-text-muted absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                 <input
                   type="password"
                   required
@@ -99,19 +99,19 @@ export const RegisterPage: React.FC = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Min. 6 characters"
-                  className="w-full bg-card-secondary border border-card-border focus:border-brand-mint rounded-xl py-2 pl-9 pr-3 text-xs text-white placeholder:text-text-muted outline-none"
+                  className="w-full bg-surface-secondary border border-border focus:border-brand-blue rounded-xl py-2 pl-9 pr-3 text-xs text-text-primary placeholder:text-text-muted outline-none transition-colors"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-text-secondary mb-1">
-                Preferred Initial Role
+              <label className="block text-xs font-medium text-text-secondary mb-1">
+                Role in Trip
               </label>
               <select
                 value={role}
                 onChange={(e) => setRole(e.target.value as UserRole)}
-                className="w-full bg-card-secondary border border-card-border focus:border-brand-mint rounded-xl py-2 px-3 text-xs text-white outline-none cursor-pointer"
+                className="w-full bg-surface-secondary border border-border focus:border-brand-blue rounded-xl py-2 px-3 text-xs text-text-primary outline-none cursor-pointer"
               >
                 <option value="member">Trip Member</option>
                 <option value="admin">Trip Admin</option>
@@ -122,18 +122,18 @@ export const RegisterPage: React.FC = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-2.5 rounded-xl bg-brand-mint hover:bg-emerald-400 text-black font-bold text-xs transition-all flex items-center justify-center gap-2 shadow-glow-mint active:scale-95 disabled:opacity-50"
+              className="w-full py-2.5 rounded-full bg-brand-accent hover:bg-blue-400 text-background font-bold text-xs transition-all flex items-center justify-center gap-2 shadow-sm active:scale-95 disabled:opacity-50 mt-2"
             >
-              <UserPlus className="w-4 h-4" />
-              <span>{loading ? 'Creating Account...' : 'Create Account'}</span>
+              <UserPlus className="w-3.5 h-3.5" />
+              <span>{loading ? 'Creating...' : 'Create Profile'}</span>
             </button>
           </form>
         </div>
 
-        <div className="text-center text-xs text-text-secondary">
-          Already have an account?{' '}
-          <Link to="/login" className="text-brand-mint hover:underline font-semibold">
-            Sign In Instead
+        <div className="text-center text-xs text-text-muted">
+          Already registered?{' '}
+          <Link to="/login" className="text-brand-blue hover:underline font-semibold">
+            Sign In
           </Link>
         </div>
       </div>

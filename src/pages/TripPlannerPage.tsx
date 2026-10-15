@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { 
   CalendarDays, Plus, Clock, MapPin, CheckCircle2, 
-  Circle, Trash2, Edit3, User, DollarSign, Filter, Sparkles 
+  Circle, Trash2, Edit3, DollarSign, ChevronRight 
 } from 'lucide-react';
 import { useTrip } from '../context/TripContext';
 import { formatRupiah } from '../lib/financial';
@@ -36,41 +36,54 @@ export const TripPlannerPage: React.FC = () => {
     setIsAddOpen(true);
   };
 
+  const filteredItems = selectedDay === 'all'
+    ? itinerary
+    : itinerary.filter((i) => i.day_number === selectedDay);
+
+  // Group items by day for structured vertical timeline
+  const dayGroups = [1, 2, 3, 4]
+    .filter((d) => selectedDay === 'all' || selectedDay === d)
+    .map((dayNum) => ({
+      dayNum,
+      title: days.find((d) => d.number === dayNum)?.title || `Day ${dayNum}`,
+      items: filteredItems.filter((i) => i.day_number === dayNum).sort((a, b) => a.sort_order - b.sort_order)
+    }));
+
   return (
-    <div className="max-w-6xl mx-auto space-y-6 animate-fade-in">
+    <div className="max-w-5xl mx-auto space-y-6 animate-fade-in">
       {/* Top Header & Trip Banner */}
-      <div className="workspace-card p-6 bg-card flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div className="workspace-card p-5 md:p-6 bg-surface flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1.5">
-            <span className="pill-badge bg-brand-mint/15 text-brand-mint border border-brand-mint/30 uppercase text-[10px] font-bold">
-              Itinerary Workspace
+            <span className="pill-badge bg-surface-secondary text-brand-blue border border-border">
+              Timeline Architecture
             </span>
-            <span className="text-xs text-text-secondary">
+            <span className="text-xs text-text-muted">
               {trip.origin} ✈ {trip.destination}
             </span>
           </div>
 
-          <h1 className="text-2xl font-extrabold text-white tracking-tight">
+          <h1 className="text-xl md:text-2xl font-bold text-text-primary tracking-tight">
             Trip Planner: {trip.name}
           </h1>
 
           <p className="text-xs text-text-secondary mt-1">
-            {trip.departure_date ? `${trip.departure_date} to ${trip.return_date || 'TBD'}` : 'Dates: Proposal stage (4 Days, 3 Nights)'} • Synchronized collaborative timeline
+            {trip.departure_date ? `${trip.departure_date} to ${trip.return_date || 'TBD'}` : '4 Days, 3 Nights Proposal'} • Synchronized group itinerary
           </p>
         </div>
 
         <div className="flex items-center gap-2.5">
           <button
             onClick={() => setIsEditTripOpen(true)}
-            className="px-3.5 py-2 rounded-xl bg-card-secondary hover:bg-card-border border border-card-border text-xs font-semibold text-white transition-colors"
+            className="px-3.5 py-1.5 rounded-full bg-surface-secondary hover:bg-surface-elevated border border-border text-xs font-medium text-text-secondary hover:text-text-primary transition-colors"
           >
             Edit Trip Dates
           </button>
           <button
             onClick={() => handleOpenAdd(typeof selectedDay === 'number' ? selectedDay : 1)}
-            className="px-4 py-2 rounded-xl bg-brand-mint hover:bg-emerald-400 text-black text-xs font-bold transition-all flex items-center gap-1.5 shadow-glow-mint active:scale-95"
+            className="px-4 py-1.5 rounded-full bg-brand-accent hover:bg-blue-400 text-background text-xs font-bold transition-all flex items-center gap-1.5 shadow-sm active:scale-95"
           >
-            <Plus className="w-4 h-4" />
+            <Plus className="w-3.5 h-3.5" />
             <span>Add Activity</span>
           </button>
         </div>
@@ -80,10 +93,10 @@ export const TripPlannerPage: React.FC = () => {
       <div className="flex items-center gap-2 overflow-x-auto pb-1">
         <button
           onClick={() => setSelectedDay('all')}
-          className={`px-4 py-2 rounded-full text-xs font-semibold shrink-0 transition-all ${
+          className={`px-3.5 py-1.5 rounded-full text-xs font-medium shrink-0 transition-colors ${
             selectedDay === 'all'
-              ? 'bg-white text-black font-bold shadow-sm'
-              : 'bg-card hover:bg-card-secondary border border-card-border text-text-secondary hover:text-white'
+              ? 'bg-brand-accent text-background font-bold shadow-sm'
+              : 'bg-surface hover:bg-surface-secondary border border-border text-text-secondary hover:text-text-primary'
           }`}
         >
           All Days ({itinerary.length})
@@ -96,14 +109,16 @@ export const TripPlannerPage: React.FC = () => {
             <button
               key={d.number}
               onClick={() => setSelectedDay(d.number)}
-              className={`px-4 py-2 rounded-full text-xs font-semibold shrink-0 transition-all flex items-center gap-2 ${
+              className={`px-3.5 py-1.5 rounded-full text-xs font-medium shrink-0 transition-colors flex items-center gap-1.5 ${
                 isSelected
-                  ? 'bg-brand-mint text-black font-bold shadow-glow-mint'
-                  : 'bg-card hover:bg-card-secondary border border-card-border text-text-secondary hover:text-white'
+                  ? 'bg-brand-accent text-background font-bold shadow-sm'
+                  : 'bg-surface hover:bg-surface-secondary border border-border text-text-secondary hover:text-text-primary'
               }`}
             >
               <span>{d.title}</span>
-              <span className={`text-[10px] px-1.5 py-0.2 rounded-full ${isSelected ? 'bg-black/20 text-black' : 'bg-card-secondary text-text-muted'}`}>
+              <span className={`text-[10px] px-1.5 py-0.2 rounded-full ${
+                isSelected ? 'bg-black/20 text-black' : 'bg-surface-secondary text-text-muted'
+              }`}>
                 {count}
               </span>
             </button>
@@ -111,139 +126,119 @@ export const TripPlannerPage: React.FC = () => {
         })}
       </div>
 
-      {/* Timeline Section */}
+      {/* Vertical Timeline Structure */}
       <div className="space-y-6">
-        {(selectedDay === 'all' ? [1, 2, 3, 4] : [selectedDay]).map((dayNum) => {
-          const itemsForDay = itinerary.filter((i) => i.day_number === dayNum);
-          const dayInfo = days.find((d) => d.number === dayNum);
-
-          return (
-            <div key={dayNum} className="space-y-3">
-              <div className="flex items-center justify-between px-1">
-                <div className="flex items-center gap-2">
-                  <div className="w-6 h-6 rounded-lg bg-brand-mint/15 text-brand-mint flex items-center justify-center font-bold text-xs">
-                    {dayNum}
-                  </div>
-                  <h3 className="text-sm font-bold text-white uppercase tracking-wider">
-                    {dayInfo?.title}
-                  </h3>
-                </div>
-
-                <button
-                  onClick={() => handleOpenAdd(dayNum)}
-                  className="text-xs text-brand-mint hover:underline font-semibold flex items-center gap-1"
-                >
-                  <Plus className="w-3.5 h-3.5" />
-                  <span>Add to Day {dayNum}</span>
-                </button>
+        {dayGroups.map((group) => (
+          <div key={group.dayNum} className="space-y-3">
+            {/* Day Header Row */}
+            <div className="flex items-center justify-between pb-1.5 border-b border-border/60">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-brand-blue" />
+                <h3 className="text-sm font-bold text-text-primary">
+                  {group.title}
+                </h3>
+                <span className="text-xs text-text-muted">
+                  ({group.items.length} items)
+                </span>
               </div>
 
-              {itemsForDay.length === 0 ? (
-                <div className="workspace-card p-6 bg-card text-center space-y-2 border-dashed">
-                  <p className="text-xs text-text-muted">No activities scheduled for this day yet.</p>
-                  <button
-                    onClick={() => handleOpenAdd(dayNum)}
-                    className="px-3 py-1.5 rounded-lg bg-card-secondary text-xs text-brand-mint font-semibold hover:bg-card-border transition-colors"
-                  >
-                    + Schedule First Experience
-                  </button>
-                </div>
-              ) : (
-                <div className="grid grid-cols-1 gap-3">
-                  {itemsForDay.map((item) => (
+              <button
+                onClick={() => handleOpenAdd(group.dayNum)}
+                className="text-[11px] text-brand-blue hover:underline font-medium flex items-center gap-1"
+              >
+                <Plus className="w-3 h-3" />
+                <span>Add Event</span>
+              </button>
+            </div>
+
+            {/* Timeline Items */}
+            {group.items.length === 0 ? (
+              <div className="p-4 rounded-xl bg-surface/50 border border-border/50 text-center text-xs text-text-muted">
+                No activities planned for this day yet. Click "Add Event" to insert.
+              </div>
+            ) : (
+              <div className="relative pl-6 space-y-3 border-l border-border/70 ml-3">
+                {group.items.map((item) => {
+                  const isCompleted = item.status === 'completed';
+                  return (
                     <div
                       key={item.id}
-                      className="workspace-card p-4 bg-card hover:border-card-hover border-card-border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 transition-all group"
+                      className="relative group p-3.5 rounded-xl bg-surface hover:bg-surface-secondary/70 border border-border transition-colors flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3"
                     >
-                      <div className="flex items-start gap-3.5 flex-1 min-w-0">
-                        {/* Status Toggle Circle */}
-                        <button
-                          onClick={() => handleToggleStatus(item.id, item.status)}
-                          className="mt-0.5 shrink-0 transition-transform active:scale-90"
-                          title={`Click to mark as ${item.status === 'completed' ? 'suggested' : 'completed'}`}
-                        >
-                          {item.status === 'completed' ? (
-                            <CheckCircle2 className="w-5 h-5 text-brand-mint" />
-                          ) : item.status === 'confirmed' ? (
-                            <div className="w-5 h-5 rounded-full border-2 border-brand-blue flex items-center justify-center">
-                              <div className="w-2 h-2 rounded-full bg-brand-blue" />
-                            </div>
-                          ) : (
-                            <Circle className="w-5 h-5 text-text-muted hover:text-white" />
-                          )}
-                        </button>
+                      {/* Timeline Node Dot */}
+                      <span 
+                        onClick={() => handleToggleStatus(item.id, item.status)}
+                        className={`absolute -left-[31px] top-4 w-3.5 h-3.5 rounded-full border-2 border-background cursor-pointer transition-colors ${
+                          isCompleted ? 'bg-brand-teal' : item.status === 'confirmed' ? 'bg-brand-blue' : 'bg-surface-elevated border-text-muted'
+                        }`}
+                        title="Click to toggle status"
+                      />
 
-                        <div className="space-y-1 min-w-0">
-                          <div className="flex items-center gap-2 flex-wrap">
-                            <h4 className={`text-sm font-bold text-white truncate ${item.status === 'completed' ? 'line-through text-text-muted' : ''}`}>
-                              {item.title}
-                            </h4>
-                            <span className={`text-[10px] px-2 py-0.5 rounded-full font-semibold uppercase tracking-wider ${
-                              item.status === 'completed'
-                                ? 'bg-brand-mint/15 text-brand-mint'
-                                : item.status === 'confirmed'
-                                ? 'bg-brand-blue/15 text-brand-blue'
-                                : 'bg-card-secondary text-text-muted'
-                            }`}>
-                              {item.status}
+                      <div className="space-y-1 min-w-0 flex-1">
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs font-bold text-text-primary">
+                            {item.title}
+                          </span>
+                          <span className={`text-[9px] px-2 py-0.5 rounded-full font-semibold uppercase tracking-wider border ${
+                            isCompleted
+                              ? 'bg-brand-teal/15 text-brand-teal border-brand-teal/30'
+                              : item.status === 'confirmed'
+                              ? 'bg-brand-blue/15 text-brand-blue border-brand-blue/30'
+                              : 'bg-surface-secondary text-text-muted border-border'
+                          }`}>
+                            {item.status}
+                          </span>
+                        </div>
+
+                        {item.description && (
+                          <p className="text-xs text-text-secondary line-clamp-1">
+                            {item.description}
+                          </p>
+                        )}
+
+                        <div className="flex flex-wrap items-center gap-3 text-[11px] text-text-muted pt-0.5">
+                          {item.start_time && (
+                            <span className="flex items-center gap-1 font-mono">
+                              <Clock className="w-3 h-3 text-brand-blue" />
+                              <span>{item.start_time}{item.end_time ? ` - ${item.end_time}` : ''}</span>
                             </span>
-                          </div>
-
-                          {item.description && (
-                            <p className="text-xs text-text-secondary leading-relaxed">
-                              {item.description}
-                            </p>
                           )}
-
-                          <div className="flex items-center gap-3 text-[11px] text-text-muted pt-1 flex-wrap">
-                            {item.location && (
-                              <span className="flex items-center gap-1">
-                                <MapPin className="w-3 h-3 text-text-secondary" />
-                                <span>{item.location}</span>
-                              </span>
-                            )}
-
-                            {item.start_time && (
-                              <span className="flex items-center gap-1 font-mono">
-                                <Clock className="w-3 h-3 text-text-secondary" />
-                                <span>{item.start_time} {item.end_time ? `- ${item.end_time}` : ''}</span>
-                              </span>
-                            )}
-
-                            {item.estimated_cost > 0 && (
-                              <span className="flex items-center gap-1 font-mono text-brand-mint font-semibold">
-                                <DollarSign className="w-3 h-3" />
-                                <span>Est. {formatRupiah(item.estimated_cost)}</span>
-                              </span>
-                            )}
-                          </div>
+                          {item.location && (
+                            <span className="flex items-center gap-1">
+                              <MapPin className="w-3 h-3 text-brand-teal" />
+                              <span>{item.location}</span>
+                            </span>
+                          )}
+                          {item.estimated_cost > 0 && (
+                            <span className="text-text-secondary font-mono">
+                              Est: {formatRupiah(item.estimated_cost)}
+                            </span>
+                          )}
                         </div>
                       </div>
 
-                      {/* Right metadata & delete */}
-                      <div className="flex items-center gap-3 shrink-0 self-end sm:self-center">
-                        {item.assigned_profile && (
-                          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-card-secondary border border-card-border text-[11px] text-text-secondary">
-                            <User className="w-3 h-3 text-brand-mint" />
-                            <span>{item.assigned_profile.display_name.split(' ')[0]}</span>
-                          </div>
-                        )}
-
+                      <div className="flex items-center gap-2 shrink-0 self-end sm:self-center">
+                        <button
+                          onClick={() => handleToggleStatus(item.id, item.status)}
+                          className="px-2.5 py-1 rounded-full bg-surface-secondary hover:bg-surface-elevated border border-border text-[11px] text-text-secondary hover:text-text-primary transition-colors"
+                        >
+                          {isCompleted ? 'Completed' : 'Mark Done'}
+                        </button>
                         <button
                           onClick={() => deleteItineraryItem(item.id)}
-                          className="p-1.5 rounded-lg text-text-muted hover:text-rose-400 hover:bg-card-secondary transition-colors"
-                          title="Delete activity"
+                          className="p-1 rounded-lg text-text-muted hover:text-brand-rose transition-colors"
+                          title="Delete item"
                         >
-                          <Trash2 className="w-4 h-4" />
+                          <Trash2 className="w-3.5 h-3.5" />
                         </button>
                       </div>
                     </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          );
-        })}
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        ))}
       </div>
 
       {/* Modals */}

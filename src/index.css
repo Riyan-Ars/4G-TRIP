@@ -4,16 +4,17 @@
 
 @layer base {
   :root {
-    --bg-main: #050505;
-    --sidebar-bg: #111111;
-    --card-bg: #181818;
-    --border-color: #303030;
+    --bg-main: #080B14;
+    --sidebar-bg: #0B0F1C;
+    --card-bg: #101625;
+    --card-secondary: #151D2E;
+    --border-color: rgba(255, 255, 255, 0.08);
   }
 
   body {
-    background-color: #050505;
-    color: #F5F5F5;
-    font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: #080B14;
+    color: #F3F5FA;
+    font-family: 'Inter', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
@@ -26,66 +27,71 @@
   }
 
   ::-webkit-scrollbar-track {
-    background: #0b0b0b;
+    background: #080B14;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #282828;
+    background: #1B2438;
     border-radius: 9999px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: #3e3e3e;
+    background: #25334F;
   }
 }
 
 @layer components {
-  /* Workspace Card Style */
+  /* Workspace Card Styles */
   .workspace-card {
-    background-color: #181818;
-    border: 1px solid #303030;
-    border-radius: 1.25rem;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    background-color: #101625;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 1rem;
+    box-shadow: 0 4px 20px -2px rgba(2, 6, 20, 0.45);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
   }
 
   .workspace-card:hover {
-    border-color: #404040;
+    border-color: rgba(255, 255, 255, 0.13);
   }
 
   .workspace-card-secondary {
-    background-color: #202020;
-    border: 1px solid #343434;
-    border-radius: 1.25rem;
+    background-color: #151D2E;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 0.875rem;
   }
 
-  /* Pill button styling */
+  .workspace-card-elevated {
+    background-color: #1B2438;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    box-shadow: 0 12px 32px -4px rgba(2, 6, 20, 0.6);
+  }
+
+  /* Pill badge styling */
   .pill-badge {
     display: inline-flex;
     align-items: center;
     gap: 0.375rem;
-    padding: 0.25rem 0.625rem;
+    padding: 0.2rem 0.55rem;
     border-radius: 9999px;
-    font-size: 0.75rem;
-    font-weight: 500;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.025em;
   }
 }
 
-/* Glass & Glow utilities */
+/* Glass & subtle lighting utilities */
 .glass-panel {
-  background: rgba(24, 24, 24, 0.85);
+  background: rgba(16, 22, 37, 0.85);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.text-gradient-mint {
-  background: linear-gradient(135deg, #6EE7B7 0%, #60A5FA 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+.surface-glow-accent {
+  box-shadow: 0 0 24px -6px rgba(119, 152, 255, 0.2);
 }
 
-.text-gradient-purple {
-  background: linear-gradient(135deg, #C084FC 0%, #FB923C 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+.surface-glow-teal {
+  box-shadow: 0 0 24px -6px rgba(120, 200, 176, 0.2);
 }

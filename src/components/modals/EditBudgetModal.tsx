@@ -102,14 +102,14 @@ export const EditBudgetModal: React.FC<EditBudgetModalProps> = ({ isOpen, onClos
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 rounded-xl text-xs font-semibold text-text-secondary hover:text-white hover:bg-card-secondary transition-colors"
+              className="px-4 py-2 rounded-xl text-xs font-semibold text-text-secondary hover:text-white hover:bg-surface-secondary transition-colors"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={rawAmount <= 0}
-              className="px-5 py-2.5 rounded-xl text-xs font-bold bg-brand-violet text-black hover:bg-purple-300 disabled:opacity-40 transition-all flex items-center gap-1.5 shadow-glow-violet"
+              className="px-5 py-2.5 rounded-full text-xs font-bold bg-brand-accent text-background hover:bg-blue-400 disabled:opacity-40 transition-all flex items-center gap-1.5 shadow-sm active:scale-95"
             >
               <Check className="w-4 h-4" />
               <span>Save Budget Target</span>

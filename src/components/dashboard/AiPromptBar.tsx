@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import { 
-  Sparkles, Mic, Send, RefreshCw, Compass, Lightbulb, Check 
-} from 'lucide-react';
+import { Sparkles, Mic, Send, RefreshCw, Check } from 'lucide-react';
 import { useTrip } from '../../context/TripContext';
 
 export const AiPromptBar: React.FC = () => {
@@ -18,7 +16,6 @@ export const AiPromptBar: React.FC = () => {
 
     setIsSubmitting(true);
     setTimeout(() => {
-      // Add smart activity suggestions
       addItineraryItem(
         2,
         'KL Street Photography & Golden Hour',
@@ -32,7 +29,7 @@ export const AiPromptBar: React.FC = () => {
       setIsSubmitting(false);
       setIsSuccess(true);
       setTimeout(() => setIsSuccess(false), 2500);
-    }, 800);
+    }, 700);
   };
 
   const handleQuickSuggest = (topic: string) => {
@@ -47,97 +44,72 @@ export const AiPromptBar: React.FC = () => {
 
   return (
     <div className="space-y-3">
-      {/* Upper row: Need More Ideas pill box & Quick Action Pills (matches ref image!) */}
+      {/* Upper row: Quick Suggestion Chips */}
       <div className="flex flex-wrap items-center justify-between gap-3">
-        {/* Need more ideas card */}
-        <div className="flex items-center gap-3 px-4 py-2 rounded-2xl bg-card border border-card-border">
-          <div className="w-7 h-7 rounded-lg bg-brand-mint/15 border border-brand-mint/30 flex items-center justify-center text-brand-mint">
-            <Lightbulb className="w-4 h-4" />
-          </div>
-          <div>
-            <div className="text-xs font-semibold text-white">Need more itinerary ideas?</div>
-            <div className="text-[10px] text-text-muted">Generate activities tailored to your group savings</div>
-          </div>
-          <button
-            onClick={() => handleQuickSuggest('food')}
-            className="px-3 py-1 rounded-full bg-card-secondary hover:bg-card-border border border-card-border text-white text-[10px] font-bold transition-colors ml-2"
-          >
-            Auto Fill
-          </button>
-        </div>
-
-        {/* Quick action pill badges (matches reference image: Suggest Activities, Rearrange) */}
         <div className="flex items-center gap-2">
+          <span className="text-[11px] font-medium text-text-muted">Quick Prompts:</span>
           <button
             onClick={() => handleQuickSuggest('food')}
-            className="pill-badge bg-card hover:bg-card-secondary border border-card-border text-text-secondary hover:text-white transition-all text-[11px]"
+            className="px-2.5 py-1 rounded-full bg-surface hover:bg-surface-secondary border border-border text-text-secondary hover:text-text-primary transition-colors text-[11px] font-medium"
           >
-            <Sparkles className="w-3 h-3 text-brand-mint" />
-            <span>Food Ideas</span>
+            Halal Food Guide
           </button>
-
           <button
             onClick={() => handleQuickSuggest('culture')}
-            className="pill-badge bg-card hover:bg-card-secondary border border-card-border text-text-secondary hover:text-white transition-all text-[11px]"
+            className="px-2.5 py-1 rounded-full bg-surface hover:bg-surface-secondary border border-border text-text-secondary hover:text-text-primary transition-colors text-[11px] font-medium"
           >
-            <Sparkles className="w-3 h-3 text-brand-blue" />
-            <span>Culture Tour</span>
+            Heritage Walking Route
           </button>
-
           <button
             onClick={() => handleQuickSuggest('rearrange')}
-            className="pill-badge bg-card hover:bg-card-secondary border border-card-border text-text-secondary hover:text-white transition-all text-[11px]"
+            className="px-2.5 py-1 rounded-full bg-surface hover:bg-surface-secondary border border-border text-text-secondary hover:text-text-primary transition-colors text-[11px] font-medium"
           >
-            <RefreshCw className="w-3 h-3 text-brand-orange" />
-            <span>Rearrange</span>
+            Traffic Optimization
           </button>
         </div>
       </div>
 
-      {/* Main Interactive AI Prompt Box (reproducing exact glowing dark box in ref image) */}
+      {/* Main Restrained Command Prompt Box */}
       <form
         onSubmit={handleSend}
-        className="relative rounded-2xl bg-[#141414] border border-card-border hover:border-brand-mint/50 focus-within:border-brand-mint p-3.5 transition-all shadow-subtle group"
+        className="relative rounded-xl bg-surface border border-border focus-within:border-brand-blue/50 p-3 transition-colors shadow-subtle group"
       >
         <textarea
           rows={2}
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
-          placeholder="Ask 4G Trip to organize travel days, compare costs, or suggest destinations..."
-          className="w-full bg-transparent text-xs sm:text-sm text-white placeholder:text-text-muted outline-none resize-none leading-relaxed"
+          placeholder="Ask 4G Trip planner to organize itineraries, calculate budget splits, or find places..."
+          className="w-full bg-transparent text-xs sm:text-sm text-text-primary placeholder:text-text-muted outline-none resize-none leading-relaxed"
         />
 
-        <div className="flex items-center justify-between pt-2 border-t border-white/5 mt-1">
+        <div className="flex items-center justify-between pt-2 border-t border-border/40 mt-1">
           <div className="flex items-center gap-2">
             <button
               type="button"
-              className="p-1.5 rounded-lg text-text-secondary hover:text-white hover:bg-card-secondary transition-colors"
+              className="p-1 rounded-lg text-text-muted hover:text-text-primary hover:bg-surface-secondary transition-colors"
               title="Voice Input"
             >
-              <Mic className="w-4 h-4" />
+              <Mic className="w-3.5 h-3.5" />
             </button>
             <button
               type="button"
-              className="p-1.5 rounded-lg text-brand-mint hover:bg-card-secondary transition-colors"
-              title="AI Magic"
+              className="p-1 rounded-lg text-brand-blue hover:bg-surface-secondary transition-colors"
+              title="Assistant"
             >
-              <Sparkles className="w-4 h-4" />
+              <Sparkles className="w-3.5 h-3.5" />
             </button>
           </div>
 
           <div className="flex items-center gap-2">
-            <span className="hidden sm:inline-block text-[10px] font-mono text-text-muted px-2 py-0.5 rounded bg-card-secondary border border-card-border">
-              ⌘ + K
-            </span>
             <button
               type="submit"
               disabled={isSubmitting || !prompt.trim()}
-              className="px-4 py-1.5 rounded-full bg-white hover:bg-slate-200 text-black text-xs font-bold transition-all disabled:opacity-40 flex items-center gap-1.5 active:scale-95 shadow-sm"
+              className="px-3.5 py-1.5 rounded-full bg-brand-accent hover:bg-blue-400 text-background text-xs font-bold transition-all disabled:opacity-40 flex items-center gap-1.5 active:scale-95 shadow-sm"
             >
               {isSuccess ? (
                 <>
-                  <Check className="w-3.5 h-3.5 text-emerald-600" />
-                  <span>Added!</span>
+                  <Check className="w-3.5 h-3.5 text-background" />
+                  <span>Added to Plan!</span>
                 </>
               ) : isSubmitting ? (
                 <>
@@ -146,7 +118,7 @@ export const AiPromptBar: React.FC = () => {
                 </>
               ) : (
                 <>
-                  <span>Send</span>
+                  <span>Submit</span>
                   <Send className="w-3 h-3" />
                 </>
               )}

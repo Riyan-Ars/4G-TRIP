@@ -123,7 +123,7 @@ export const InviteMemberModal: React.FC<InviteMemberModalProps> = ({ isOpen, on
               </button>
               <button
                 type="submit"
-                className="px-5 py-2 rounded-xl text-xs font-bold bg-brand-blue text-white hover:bg-blue-600 transition-all flex items-center gap-1.5 shadow-glow-blue"
+                className="px-5 py-2.5 rounded-full text-xs font-bold bg-brand-accent text-background hover:bg-blue-400 transition-all flex items-center gap-1.5 shadow-sm active:scale-95"
               >
                 <UserPlus className="w-3.5 h-3.5" />
                 <span>Send Invitation</span>
@@ -132,8 +132,8 @@ export const InviteMemberModal: React.FC<InviteMemberModalProps> = ({ isOpen, on
           </form>
         ) : (
           <div className="space-y-4">
-            <div className="p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs">
-              ✓ Member <span className="font-semibold text-white">{email}</span> added successfully to "{trip.name}"! Share the invitation link below:
+            <div className="p-3.5 rounded-xl bg-brand-teal/10 border border-brand-teal/30 text-brand-teal text-xs">
+              ✓ Member <span className="font-semibold text-text-primary">{email}</span> added successfully to "{trip.name}"! Share the invitation link below:
             </div>
 
             <div>
@@ -145,11 +145,11 @@ export const InviteMemberModal: React.FC<InviteMemberModalProps> = ({ isOpen, on
                   type="text"
                   readOnly
                   value={inviteLink}
-                  className="flex-1 bg-card-secondary border border-card-border rounded-xl px-3 py-2 text-xs text-text-primary select-all font-mono"
+                  className="flex-1 bg-surface-secondary border border-border rounded-xl px-3 py-2 text-xs text-text-primary select-all font-mono"
                 />
                 <button
                   onClick={handleCopy}
-                  className="px-3.5 py-2 rounded-xl bg-brand-mint text-black font-bold text-xs hover:bg-emerald-400 flex items-center gap-1.5 transition-colors"
+                  className="px-3.5 py-2 rounded-full bg-brand-teal text-background font-bold text-xs hover:bg-emerald-400 flex items-center gap-1.5 transition-colors"
                 >
                   {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
                   <span>{copied ? 'Copied' : 'Copy'}</span>
@@ -164,7 +164,7 @@ export const InviteMemberModal: React.FC<InviteMemberModalProps> = ({ isOpen, on
                   setEmail('');
                   onClose();
                 }}
-                className="px-5 py-2 rounded-xl text-xs font-bold bg-card-secondary hover:bg-card-border text-white transition-colors"
+                className="px-5 py-2 rounded-full text-xs font-bold bg-surface-secondary hover:bg-surface-elevated text-text-primary transition-colors border border-border"
               >
                 Done
               </button>

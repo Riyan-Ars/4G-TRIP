@@ -181,7 +181,7 @@ export const AddExpenseModal: React.FC<AddExpenseModalProps> = ({ isOpen, onClos
               <button
                 type="submit"
                 disabled={rawAmount <= 0 || !description.trim()}
-                className="px-5 py-2.5 rounded-xl text-xs font-bold bg-brand-orange text-black hover:bg-amber-400 disabled:opacity-40 transition-all flex items-center gap-1.5 shadow-sm"
+                className="px-5 py-2.5 rounded-full text-xs font-bold bg-brand-orange text-background hover:bg-amber-400 disabled:opacity-40 transition-all flex items-center gap-1.5 shadow-sm active:scale-95"
               >
                 <Receipt className="w-4 h-4" />
                 <span>Record Expense</span>

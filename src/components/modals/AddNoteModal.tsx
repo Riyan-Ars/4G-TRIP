@@ -64,7 +64,7 @@ export const AddNoteModal: React.FC<AddNoteModalProps> = ({ isOpen, onClose }) =
             <button
               type="submit"
               disabled={!content.trim()}
-              className="px-5 py-2 rounded-xl text-xs font-bold bg-brand-mint text-black hover:bg-emerald-400 disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-2 transition-all shadow-glow-mint"
+              className="px-5 py-2.5 rounded-full text-xs font-bold bg-brand-accent text-background hover:bg-blue-400 disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-2 transition-all shadow-sm active:scale-95"
             >
               <Send className="w-3.5 h-3.5" />
               <span>Post Note</span>

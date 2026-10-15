@@ -20,11 +20,11 @@ export const AppLayout: React.FC = () => {
       {mobileMenuOpen && (
         <div className="fixed inset-0 z-50 lg:hidden flex">
           <div 
-            className="fixed inset-0 bg-black/80 backdrop-blur-sm transition-opacity" 
+            className="fixed inset-0 bg-background/80 backdrop-blur-sm transition-opacity" 
             onClick={() => setMobileMenuOpen(false)} 
           />
           <Sidebar 
-            className="relative z-10 w-72" 
+            className="relative z-10 w-72 shadow-elevated" 
             onCloseMobile={() => setMobileMenuOpen(false)} 
           />
         </div>
@@ -54,3 +54,4 @@ export const AppLayout: React.FC = () => {
     </div>
   );
 };
+

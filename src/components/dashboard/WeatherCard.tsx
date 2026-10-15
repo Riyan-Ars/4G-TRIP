@@ -14,20 +14,20 @@ export const WeatherCard: React.FC = () => {
 
   const handleRefresh = () => {
     setIsRefreshing(true);
-    setTimeout(() => setIsRefreshing(false), 600);
+    setTimeout(() => setIsRefreshing(false), 500);
   };
 
   return (
-    <div className="workspace-card p-5 bg-card flex flex-col justify-between">
-      <div className="flex items-center justify-between mb-3">
-        <h3 className="text-xs font-bold text-white tracking-wide">
-          5 Days Forecast (Kuala Lumpur)
+    <div className="workspace-card p-4 bg-surface flex flex-col justify-between">
+      <div className="flex items-center justify-between mb-2">
+        <h3 className="text-xs font-semibold text-text-primary tracking-wide">
+          Forecast (Kuala Lumpur)
         </h3>
         <button
           onClick={handleRefresh}
-          className="text-[10px] text-text-secondary hover:text-white flex items-center gap-1 transition-colors"
+          className="text-[10px] text-text-muted hover:text-text-primary flex items-center gap-1 transition-colors"
         >
-          <RefreshCw className={`w-3 h-3 ${isRefreshing ? 'animate-spin text-brand-mint' : ''}`} />
+          <RefreshCw className={`w-3 h-3 ${isRefreshing ? 'animate-spin text-brand-teal' : ''}`} />
           <span>Refresh</span>
         </button>
       </div>
@@ -38,26 +38,26 @@ export const WeatherCard: React.FC = () => {
           return (
             <div
               key={f.day}
-              className={`flex flex-col items-center justify-center p-2 rounded-xl border transition-all text-center ${
+              className={`flex flex-col items-center justify-center p-2 rounded-xl border transition-colors text-center ${
                 i === 0 
-                  ? 'bg-card-secondary border-brand-mint/30 shadow-sm' 
-                  : 'bg-card-secondary/40 border-card-border/50 hover:bg-card-secondary/80'
+                  ? 'bg-surface-secondary border-brand-teal/30' 
+                  : 'bg-surface-secondary/40 border-border/60 hover:bg-surface-secondary/70'
               }`}
             >
-              <span className="text-[10px] font-semibold text-text-secondary mb-1.5">{f.day}</span>
-              <Icon className={`w-5 h-5 mb-1.5 ${
-                f.type === 'sun' ? 'text-amber-400' : f.type === 'rain' ? 'text-brand-blue' : 'text-slate-300'
+              <span className="text-[10px] font-medium text-text-muted mb-1">{f.day}</span>
+              <Icon className={`w-4 h-4 mb-1 ${
+                f.type === 'sun' ? 'text-brand-amber' : f.type === 'rain' ? 'text-brand-blue' : 'text-text-secondary'
               }`} />
               <span className="text-[10px] font-mono text-text-muted mb-0.5">{f.rain}</span>
-              <span className="text-xs font-bold text-white">{f.temp}</span>
+              <span className="text-xs font-semibold text-text-primary">{f.temp}</span>
             </div>
           );
         })}
       </div>
 
-      <div className="mt-3 pt-2 border-t border-card-border/60 flex items-center justify-between text-[10px] text-text-muted">
-        <span>Tropical / warm daylight</span>
-        <span className="text-brand-mint font-medium">Comfortable</span>
+      <div className="mt-3 pt-2 border-t border-border/60 flex items-center justify-between text-[10px] text-text-muted">
+        <span>Tropical daylight</span>
+        <span className="text-brand-teal font-medium">Warm & Sunny</span>
       </div>
     </div>
   );

@@ -17,78 +17,78 @@ export const MembersPage: React.FC = () => {
   const isOwner = currentRole === 'owner';
 
   return (
-    <div className="max-w-6xl mx-auto space-y-6 animate-fade-in">
+    <div className="max-w-5xl mx-auto space-y-6 animate-fade-in">
       {/* Top Banner */}
-      <div className="workspace-card p-6 bg-card flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div className="workspace-card p-5 md:p-6 bg-surface flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1.5">
-            <span className="pill-badge bg-brand-mint/15 text-brand-mint border border-brand-mint/30 uppercase text-[10px] font-bold">
+            <span className="pill-badge bg-surface-secondary text-brand-teal border border-border">
               Travel Squad
             </span>
-            <span className="text-xs text-text-secondary">
-              Role-Based Access Control
+            <span className="text-xs text-text-muted">
+              Role-Based Collaboration
             </span>
           </div>
 
-          <h1 className="text-2xl font-extrabold text-white tracking-tight">
+          <h1 className="text-xl md:text-2xl font-bold text-text-primary tracking-tight">
             Group Members ({members.length})
           </h1>
 
           <p className="text-xs text-text-secondary mt-1">
-            Manage trip contributors, assign administrative permissions, and track individual savings progress.
+            Manage trip contributors, assign roles and administrative permissions, and track individual savings.
           </p>
         </div>
 
         <button
           onClick={() => setIsInviteOpen(true)}
-          className="px-4 py-2 rounded-xl bg-brand-mint hover:bg-emerald-400 text-black text-xs font-bold transition-all flex items-center gap-1.5 shadow-glow-mint active:scale-95"
+          className="px-4 py-1.5 rounded-full bg-brand-accent hover:bg-blue-400 text-background text-xs font-bold transition-all flex items-center gap-1.5 shadow-sm active:scale-95"
         >
-          <UserPlus className="w-4 h-4" />
-          <span>Invite New Traveler</span>
+          <UserPlus className="w-3.5 h-3.5" />
+          <span>Invite Traveler</span>
         </button>
       </div>
 
       {/* Role Explanations */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-        <div className="p-3.5 rounded-xl bg-card border border-card-border space-y-1">
+        <div className="p-3.5 rounded-xl bg-surface border border-border space-y-1">
           <div className="text-xs font-bold text-brand-orange uppercase tracking-wider flex items-center gap-1.5">
             <ShieldCheck className="w-3.5 h-3.5" />
-            <span>Owner (Leader)</span>
+            <span>Owner</span>
           </div>
           <p className="text-[11px] text-text-secondary leading-relaxed">
-            Full trip control: manage budget targets, change member roles, delete trip or verify contributions.
+            Full trip control: manage budget targets, assign member roles, and verify group contributions.
           </p>
         </div>
 
-        <div className="p-3.5 rounded-xl bg-card border border-card-border space-y-1">
+        <div className="p-3.5 rounded-xl bg-surface border border-border space-y-1">
           <div className="text-xs font-bold text-brand-blue uppercase tracking-wider flex items-center gap-1.5">
             <Shield className="w-3.5 h-3.5" />
             <span>Admin</span>
           </div>
           <p className="text-[11px] text-text-secondary leading-relaxed">
-            Operational manager: verify savings transfers, record expenses, edit day itinerary activities.
+            Operational manager: verify savings receipts, record group expenses, and edit timeline activities.
           </p>
         </div>
 
-        <div className="p-3.5 rounded-xl bg-card border border-card-border space-y-1">
-          <div className="text-xs font-bold text-brand-mint uppercase tracking-wider flex items-center gap-1.5">
+        <div className="p-3.5 rounded-xl bg-surface border border-border space-y-1">
+          <div className="text-xs font-bold text-brand-teal uppercase tracking-wider flex items-center gap-1.5">
             <Users className="w-3.5 h-3.5" />
             <span>Member</span>
           </div>
           <p className="text-[11px] text-text-secondary leading-relaxed">
-            Submit savings receipts, toggle checklist items, contribute notes, view transparent financial ledger.
+            Submit savings transfers, check off items on packing lists, and view transparent financial ledgers.
           </p>
         </div>
       </div>
 
       {/* Member Directory List */}
-      <div className="workspace-card overflow-hidden bg-card border-card-border">
-        <div className="p-4 border-b border-card-border/60 flex items-center justify-between text-xs font-bold text-text-muted uppercase tracking-wider">
+      <div className="workspace-card overflow-hidden bg-surface border-border">
+        <div className="p-3.5 md:p-4 border-b border-border/60 flex items-center justify-between text-xs font-semibold text-text-muted uppercase tracking-wider">
           <span>Traveler</span>
-          <span>Role & Savings Progress</span>
+          <span>Savings & Role</span>
         </div>
 
-        <div className="divide-y divide-card-border/60">
+        <div className="divide-y divide-border/60">
           {members.map((member) => {
             const fin = memberFinancials.find((mf) => mf.member.user_id === member.user_id);
             const isCurrentUser = member.user_id === currentUser.id;
@@ -96,74 +96,75 @@ export const MembersPage: React.FC = () => {
             return (
               <div
                 key={member.id}
-                className="p-4 hover:bg-card-secondary/40 transition-colors flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
+                className="p-3.5 md:p-4 hover:bg-surface-secondary/40 transition-colors flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
               >
-                <div className="flex items-center gap-3.5">
+                {/* Traveler profile */}
+                <div className="flex items-center gap-3">
                   <div className="relative">
                     <img
                       src={member.profile?.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150'}
                       alt=""
-                      className="w-11 h-11 rounded-full object-cover border-2 border-card-border"
+                      className="w-9 h-9 rounded-full object-cover border border-white/10"
                     />
-                    <span className="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 rounded-full ring-2 ring-card" />
+                    {isCurrentUser && (
+                      <span className="absolute -bottom-1 -right-1 px-1 py-0.2 bg-brand-accent text-background text-[8px] font-extrabold rounded-full">
+                        You
+                      </span>
+                    )}
                   </div>
 
                   <div>
                     <div className="flex items-center gap-2">
-                      <span className="text-sm font-bold text-white">{member.profile?.display_name}</span>
-                      {isCurrentUser && (
-                        <span className="px-2 py-0.5 rounded-full bg-brand-orange text-black font-extrabold text-[9px] uppercase">
-                          You
-                        </span>
-                      )}
+                      <span className="text-xs font-bold text-text-primary">
+                        {member.profile?.display_name || 'Traveler'}
+                      </span>
+                      <span className={`text-[9px] px-2 py-0.5 rounded-full font-semibold uppercase tracking-wider border ${
+                        member.role === 'owner'
+                          ? 'bg-brand-orange/15 text-brand-orange border-brand-orange/30'
+                          : member.role === 'admin'
+                          ? 'bg-brand-blue/15 text-brand-blue border-brand-blue/30'
+                          : 'bg-brand-teal/15 text-brand-teal border-brand-teal/30'
+                      }`}>
+                        {member.role}
+                      </span>
                     </div>
-                    <div className="text-xs text-text-secondary mt-0.5">
-                      {member.profile?.email || 'traveler@4gtrip.com'} • Joined {new Date(member.joined_at).toLocaleDateString('id-ID')}
+
+                    <div className="text-[11px] text-text-muted mt-0.5">
+                      Joined {member.joined_at?.split('T')[0] || 'Recently'}
                     </div>
                   </div>
                 </div>
 
-                {/* Right: Role selection & Savings */}
+                {/* Savings status & Role management */}
                 <div className="flex items-center gap-4 self-end sm:self-center">
                   <div className="text-right">
-                    <span className="text-xs font-bold text-white block">
+                    <div className="text-xs font-mono font-bold text-text-primary">
                       {formatRupiah(fin?.verifiedAmount || 0)}
-                    </span>
-                    <span className="text-[10px] text-brand-mint font-semibold">
-                      {fin?.progressPercentage || 0}% of target
-                    </span>
+                    </div>
+                    <div className="text-[10px] text-text-muted">
+                      Target: {formatRupiah(fin?.targetAmount || 0)} ({fin?.progressPercentage || 0}%)
+                    </div>
                   </div>
 
-                  {/* Role Dropdown (Editable by Owner) */}
-                  {isOwner && member.role !== 'owner' ? (
-                    <select
-                      value={member.role}
-                      onChange={(e) => updateMemberRole(member.user_id, e.target.value as UserRole)}
-                      className="bg-card-secondary border border-card-border rounded-xl text-xs py-1.5 px-2.5 text-white outline-none cursor-pointer"
-                    >
-                      <option value="admin">Admin</option>
-                      <option value="member">Member</option>
-                    </select>
-                  ) : (
-                    <span className={`text-[11px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full ${
-                      member.role === 'owner'
-                        ? 'bg-brand-orange/15 text-brand-orange border border-brand-orange/30'
-                        : member.role === 'admin'
-                        ? 'bg-brand-blue/15 text-brand-blue border border-brand-blue/30'
-                        : 'bg-card-secondary text-text-secondary'
-                    }`}>
-                      {member.role}
-                    </span>
-                  )}
+                  {isOwner && !isCurrentUser && (
+                    <div className="flex items-center gap-2">
+                      <select
+                        value={member.role}
+                        onChange={(e) => updateMemberRole(member.id, e.target.value as UserRole)}
+                        className="bg-surface-secondary text-text-secondary border border-border text-[11px] rounded-lg px-2 py-1 outline-none"
+                      >
+                        <option value="admin">Admin</option>
+                        <option value="member">Member</option>
+                      </select>
 
-                  {isOwner && member.role !== 'owner' && (
-                    <button
-                      onClick={() => removeMember(member.user_id)}
-                      className="p-1.5 rounded-lg text-text-muted hover:text-rose-400 hover:bg-card-secondary transition-colors"
-                      title="Remove member"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
+                      <button
+                        onClick={() => removeMember(member.id)}
+                        className="p-1.5 text-text-muted hover:text-brand-rose transition-colors"
+                        title="Remove member"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
                   )}
                 </div>
               </div>
@@ -172,7 +173,11 @@ export const MembersPage: React.FC = () => {
         </div>
       </div>
 
-      <InviteMemberModal isOpen={isInviteOpen} onClose={() => setIsInviteOpen(false)} />
+      {/* Invite Modal */}
+      <InviteMemberModal
+        isOpen={isInviteOpen}
+        onClose={() => setIsInviteOpen(false)}
+      />
     </div>
   );
 };

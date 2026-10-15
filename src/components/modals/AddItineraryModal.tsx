@@ -191,7 +191,7 @@ export const AddItineraryModal: React.FC<AddItineraryModalProps> = ({
             <button
               type="submit"
               disabled={!title.trim()}
-              className="px-5 py-2.5 rounded-xl text-xs font-bold bg-brand-mint text-black hover:bg-emerald-400 disabled:opacity-40 transition-all flex items-center gap-1.5 shadow-glow-mint"
+              className="px-5 py-2.5 rounded-full text-xs font-bold bg-brand-accent text-background hover:bg-blue-400 disabled:opacity-40 transition-all flex items-center gap-1.5 shadow-sm active:scale-95"
             >
               <Plus className="w-4 h-4" />
               <span>Add to Itinerary</span>

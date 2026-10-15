@@ -4,8 +4,8 @@
   "description": "Collaborative travel planning and group savings PWA for friends organizing a trip from Banda Aceh to Malaysia.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#050505",
-  "theme_color": "#050505",
+  "background_color": "#080B14",
+  "theme_color": "#080B14",
   "orientation": "portrait-primary",
   "categories": ["travel", "finance", "productivity"],
   "icons": [

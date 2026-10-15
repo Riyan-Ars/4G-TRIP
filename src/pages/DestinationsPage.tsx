@@ -1,20 +1,19 @@
 import React, { useState } from 'react';
 import { 
-  MapPin, Plus, Heart, Bookmark, Sparkles, 
-  Calendar, DollarSign, Filter, Compass, Check 
+  MapPin, Plus, Heart, Bookmark, 
+  Calendar, DollarSign, Compass, Check 
 } from 'lucide-react';
 import { useTrip } from '../context/TripContext';
-import { DestinationCategory } from '../types';
 import { formatRupiah } from '../lib/financial';
 
 export const DestinationsPage: React.FC = () => {
-  const { destinations, toggleSaveDestination, addDestinationToItinerary, addCustomDestination } = useTrip();
+  const { destinations, toggleSaveDestination, addDestinationToItinerary } = useTrip();
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [selectedDestForDay, setSelectedDestForDay] = useState<string | null>(null);
   const [dayToAddTo, setDayToAddTo] = useState(2);
   const [addedSuccessId, setAddedSuccessId] = useState<string | null>(null);
 
-  const categories: Array<{ id: string; label: string }> = [
+  const categories = [
     { id: 'all', label: 'All Places' },
     { id: 'culture', label: 'Culture & Heritage' },
     { id: 'nature', label: 'Nature & Parks' },
@@ -37,23 +36,23 @@ export const DestinationsPage: React.FC = () => {
   return (
     <div className="max-w-6xl mx-auto space-y-6 animate-fade-in">
       {/* Top Header */}
-      <div className="workspace-card p-6 bg-card flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div className="workspace-card p-5 md:p-6 bg-surface flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1.5">
-            <span className="pill-badge bg-brand-blue/15 text-brand-blue border border-brand-blue/30 uppercase text-[10px] font-bold">
+            <span className="pill-badge bg-surface-secondary text-brand-blue border border-border">
               Discovery Guide
             </span>
-            <span className="text-xs text-text-secondary">
-              Kuala Lumpur & Surroundings
+            <span className="text-xs text-text-muted">
+              Kuala Lumpur & Vicinity
             </span>
           </div>
 
-          <h1 className="text-2xl font-extrabold text-white tracking-tight">
-            Explore Destinations
+          <h1 className="text-xl md:text-2xl font-bold text-text-primary tracking-tight">
+            Curated Destinations ({destinations.length})
           </h1>
 
           <p className="text-xs text-text-secondary mt-1">
-            Curated attractions and culinary stops. Save favorites or push directly into your group itinerary.
+            Carefully selected attractions, cultural monuments, and street food corridors. Push directly into your trip itinerary.
           </p>
         </div>
       </div>
@@ -66,10 +65,10 @@ export const DestinationsPage: React.FC = () => {
             <button
               key={cat.id}
               onClick={() => setSelectedCategory(cat.id)}
-              className={`px-4 py-2 rounded-full text-xs font-semibold shrink-0 transition-all ${
+              className={`px-3.5 py-1.5 rounded-full text-xs font-medium shrink-0 transition-colors ${
                 isSelected
-                  ? 'bg-brand-mint text-black font-bold shadow-glow-mint'
-                  : 'bg-card hover:bg-card-secondary border border-card-border text-text-secondary hover:text-white'
+                  ? 'bg-brand-accent text-background font-bold shadow-sm'
+                  : 'bg-surface hover:bg-surface-secondary border border-border text-text-secondary hover:text-text-primary'
               }`}
             >
               {cat.label}
@@ -78,102 +77,101 @@ export const DestinationsPage: React.FC = () => {
         })}
       </div>
 
-      {/* Destination Cards Grid */}
+      {/* Destination Editorial Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {filteredDestinations.map((dest) => (
           <div
             key={dest.id}
-            className="workspace-card overflow-hidden bg-card flex flex-col justify-between group hover:border-card-hover transition-all"
+            className="workspace-card overflow-hidden bg-surface flex flex-col justify-between group hover:border-border/80 transition-colors"
           >
             {/* Card Image */}
-            <div className="relative h-48 w-full overflow-hidden bg-card-secondary">
+            <div className="relative h-44 w-full overflow-hidden bg-surface-secondary">
               <img
                 src={dest.image_url}
                 alt={dest.name}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 brightness-90"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20" />
+              <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-background/20" />
 
               <div className="absolute top-3 left-3">
-                <span className="px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-brand-mint border border-white/10 text-[10px] font-bold uppercase tracking-wider">
+                <span className="px-2.5 py-0.5 rounded-full bg-background/80 backdrop-blur-md text-brand-teal border border-white/10 text-[10px] font-semibold uppercase tracking-wider">
                   {dest.category}
                 </span>
               </div>
 
               <button
                 onClick={() => toggleSaveDestination(dest.id)}
-                className="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/60 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:text-rose-400 transition-colors"
-                title="Bookmark place"
+                className={`absolute top-3 right-3 p-1.5 rounded-full backdrop-blur-md border border-white/10 transition-colors ${
+                  dest.is_saved
+                    ? 'bg-brand-rose/20 text-brand-rose border-brand-rose/30'
+                    : 'bg-background/60 text-text-secondary hover:text-text-primary'
+                }`}
+                title={dest.is_saved ? 'Remove Bookmark' : 'Save Place'}
               >
-                <Heart className={`w-4 h-4 ${dest.is_saved ? 'text-rose-500 fill-current' : 'text-white'}`} />
+                <Bookmark className="w-3.5 h-3.5 fill-current" />
               </button>
-
-              <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-xs text-white">
-                <span className="font-semibold drop-shadow">{dest.location}</span>
-                {dest.estimated_cost > 0 ? (
-                  <span className="text-[11px] font-mono text-brand-mint font-bold drop-shadow">
-                    Est. {formatRupiah(dest.estimated_cost)}
-                  </span>
-                ) : (
-                  <span className="text-[11px] text-emerald-400 font-bold drop-shadow">
-                    Free Entry
-                  </span>
-                )}
-              </div>
             </div>
 
-            {/* Content & Actions */}
+            {/* Card Body */}
             <div className="p-4 flex-1 flex flex-col justify-between">
               <div>
-                <h3 className="text-base font-bold text-white tracking-tight mb-1.5">
+                <h3 className="text-sm font-bold text-text-primary tracking-tight">
                   {dest.name}
                 </h3>
-                <p className="text-xs text-text-secondary leading-relaxed line-clamp-3">
+
+                <p className="text-xs text-text-secondary line-clamp-2 mt-1 leading-relaxed">
                   {dest.description}
                 </p>
+
+                <div className="flex items-center gap-1.5 text-[11px] text-text-muted mt-2">
+                  <MapPin className="w-3.5 h-3.5 text-brand-blue shrink-0" />
+                  <span className="truncate">{dest.location}</span>
+                </div>
               </div>
 
-              {/* Add to Day Selector or Button */}
-              <div className="mt-4 pt-3 border-t border-card-border/60">
-                {selectedDestForDay === dest.id ? (
-                  <div className="flex items-center gap-2 animate-fade-in">
-                    <select
-                      value={dayToAddTo}
-                      onChange={(e) => setDayToAddTo(parseInt(e.target.value, 10))}
-                      className="bg-card-secondary border border-card-border rounded-xl text-xs py-1.5 px-2.5 text-white outline-none flex-1"
-                    >
-                      <option value={1}>Day 1 (Arrival)</option>
-                      <option value={2}>Day 2 (Landmarks)</option>
-                      <option value={3}>Day 3 (Culture)</option>
-                      <option value={4}>Day 4 (Departure)</option>
-                    </select>
+              {/* Bottom Metadata & Action */}
+              <div className="mt-4 pt-3 border-t border-border/60 flex items-center justify-between text-xs">
+                <div>
+                  <span className="text-[10px] text-text-muted block">Estimated Cost:</span>
+                  <span className="font-mono font-semibold text-text-primary">
+                    {dest.estimated_cost === 0 ? 'Free Entry' : formatRupiah(dest.estimated_cost)}
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-1.5">
+                  {addedSuccessId === dest.id ? (
+                    <span className="text-[11px] font-semibold text-brand-teal flex items-center gap-1">
+                      <Check className="w-3.5 h-3.5" />
+                      <span>Added!</span>
+                    </span>
+                  ) : selectedDestForDay === dest.id ? (
+                    <div className="flex items-center gap-1">
+                      <select
+                        value={dayToAddTo}
+                        onChange={(e) => setDayToAddTo(Number(e.target.value))}
+                        className="bg-surface-secondary text-text-primary border border-border text-[11px] rounded-lg px-2 py-1 outline-none"
+                      >
+                        <option value={1}>Day 1</option>
+                        <option value={2}>Day 2</option>
+                        <option value={3}>Day 3</option>
+                        <option value={4}>Day 4</option>
+                      </select>
+                      <button
+                        onClick={() => handleAddToDay(dest.id)}
+                        className="px-2.5 py-1 rounded-full bg-brand-accent text-background font-bold text-[11px]"
+                      >
+                        Save
+                      </button>
+                    </div>
+                  ) : (
                     <button
-                      onClick={() => handleAddToDay(dest.id)}
-                      className="px-3 py-1.5 rounded-xl bg-brand-mint text-black font-bold text-xs hover:bg-emerald-400"
+                      onClick={() => setSelectedDestForDay(dest.id)}
+                      className="px-3 py-1 rounded-full bg-surface-secondary hover:bg-surface-elevated border border-border text-text-secondary hover:text-text-primary text-[11px] font-medium transition-colors"
                     >
-                      Confirm
+                      + Add to Plan
                     </button>
-                    <button
-                      onClick={() => setSelectedDestForDay(null)}
-                      className="px-2 py-1.5 text-text-muted hover:text-white text-xs"
-                    >
-                      ✕
-                    </button>
-                  </div>
-                ) : addedSuccessId === dest.id ? (
-                  <div className="w-full py-1.5 rounded-xl bg-brand-mint/20 border border-brand-mint/40 text-brand-mint text-xs font-bold text-center flex items-center justify-center gap-1.5">
-                    <Check className="w-3.5 h-3.5" />
-                    <span>Added to Day {dayToAddTo}!</span>
-                  </div>
-                ) : (
-                  <button
-                    onClick={() => setSelectedDestForDay(dest.id)}
-                    className="w-full py-1.5 rounded-xl bg-card-secondary hover:bg-card-border border border-card-border text-white text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors group-hover:border-brand-mint/40 group-hover:text-brand-mint"
-                  >
-                    <Plus className="w-3.5 h-3.5" />
-                    <span>Add to Itinerary Day</span>
-                  </button>
-                )}
+                  )}
+                </div>
               </div>
             </div>
           </div>

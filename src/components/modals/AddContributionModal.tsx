@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, PiggyBank, CreditCard, Calendar, FileText, Upload, ShieldAlert, CheckCircle2 } from 'lucide-react';
+import { X, PiggyBank, ShieldAlert, CheckCircle2 } from 'lucide-react';
 import { useTrip } from '../../context/TripContext';
 import { PaymentMethod } from '../../types';
 import { formatRupiah, parseRupiahInput } from '../../lib/financial';
@@ -199,7 +199,7 @@ export const AddContributionModal: React.FC<AddContributionModalProps> = ({ isOp
               <button
                 type="submit"
                 disabled={rawAmount <= 0}
-                className="px-5 py-2.5 rounded-xl text-xs font-bold bg-brand-mint text-black hover:bg-emerald-400 disabled:opacity-40 transition-all flex items-center gap-1.5 shadow-glow-mint"
+                className="px-5 py-2.5 rounded-full text-xs font-bold bg-brand-teal text-background hover:bg-emerald-400 disabled:opacity-40 transition-all flex items-center gap-1.5 shadow-sm active:scale-95"
               >
                 <PiggyBank className="w-4 h-4" />
                 <span>Submit {rawAmount > 0 ? formatRupiah(rawAmount) : 'Contribution'}</span>

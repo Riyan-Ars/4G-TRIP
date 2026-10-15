@@ -17,7 +17,7 @@ export const MobileNav: React.FC<MobileNavProps> = ({ onOpenSidebar }) => {
   ];
 
   return (
-    <nav className="lg:hidden fixed bottom-0 left-0 right-0 h-16 bg-sidebar/95 backdrop-blur-lg border-t border-card-border flex items-center justify-around px-2 z-40">
+    <nav className="lg:hidden fixed bottom-0 left-0 right-0 h-16 bg-sidebar/95 backdrop-blur-xl border-t border-border/80 flex items-center justify-around px-2 z-40">
       {items.map((item) => {
         const Icon = item.icon;
         const isActive = location.pathname === item.path;
@@ -25,19 +25,22 @@ export const MobileNav: React.FC<MobileNavProps> = ({ onOpenSidebar }) => {
           <NavLink
             key={item.path}
             to={item.path}
-            className={`flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all ${
-              isActive ? 'text-brand-mint font-semibold' : 'text-text-secondary hover:text-text-primary'
+            className={`flex flex-col items-center justify-center py-1.5 px-3 rounded-xl transition-all relative ${
+              isActive ? 'text-brand-blue font-semibold' : 'text-text-muted hover:text-text-secondary'
             }`}
           >
-            <Icon className={`w-5 h-5 mb-0.5 ${isActive ? 'text-brand-mint' : 'text-text-secondary'}`} />
+            <Icon className={`w-5 h-5 mb-0.5 transition-colors ${isActive ? 'text-brand-blue' : 'text-text-muted'}`} />
             <span className="text-[10px] tracking-tight">{item.name}</span>
+            {isActive && (
+              <span className="absolute bottom-1 w-1 h-1 rounded-full bg-brand-blue" />
+            )}
           </NavLink>
         );
       })}
 
       <button
         onClick={onOpenSidebar}
-        className="flex flex-col items-center justify-center py-1 px-3 text-text-secondary hover:text-text-primary rounded-xl"
+        className="flex flex-col items-center justify-center py-1.5 px-3 text-text-muted hover:text-text-secondary rounded-xl transition-colors"
       >
         <Menu className="w-5 h-5 mb-0.5" />
         <span className="text-[10px] tracking-tight">More</span>
@@ -45,3 +48,4 @@ export const MobileNav: React.FC<MobileNavProps> = ({ onOpenSidebar }) => {
     </nav>
   );
 };
+
